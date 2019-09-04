@@ -34,6 +34,9 @@ from tensorflow import gfile
 
 from seq2seq.test import utils as test_utils
 
+import matplotlib
+matplotlib.use('Agg')
+
 BIN_FOLDER = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../bin"))
 
