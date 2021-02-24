@@ -32,7 +32,7 @@ from tensorflow.contrib.learn.python.learn.estimators import run_config
 from tensorflow import gfile
 
 from seq2seq import models
-#from seq2seq.contrib.experiment import Experiment as PatchedExperiment
+from seq2seq.contrib.experiment import Experiment as PatchedExperiment
 from seq2seq.configurable import _maybe_load_yaml, _create_from_dict
 from seq2seq.configurable import _deep_merge_dict
 from seq2seq.data import input_pipeline
@@ -79,12 +79,9 @@ tf.flags.DEFINE_string("output_dir", None,
                        to. If None, a local temporary directory is created.""")
 
 # Training parameters
-#tf.flags.DEFINE_string("schedule", "continuous_train_and_eval",
-#                       """Estimator function to call, defaults to
-#                       continuous_train_and_eval for local run""")
-tf.flags.DEFINE_string("schedule", None,
+tf.flags.DEFINE_string("schedule", "continuous_train_and_eval",
                        """Estimator function to call, defaults to
-                       train_and_evaluate for local run""")
+                       continuous_train_and_eval for local run""")
 tf.flags.DEFINE_integer("train_steps", None,
                         """Maximum number of training steps to run.
                          If None, train forever.""")
@@ -205,26 +202,15 @@ def create_experiment(output_dir):
   for dict_ in FLAGS.metrics:
     metric = _create_from_dict(dict_, metric_specs)
     eval_metrics[metric.name] = metric
-  
-  tf.logging.info("Creating the experiment using tf.contrib.learn.Experiment instead of PatchedExperiment...")
-#  experiment = PatchedExperiment(
-#      estimator=estimator,
-#      train_input_fn=train_input_fn,
-#      eval_input_fn=eval_input_fn,
-#      min_eval_frequency=FLAGS.eval_every_n_steps,
-#      train_steps=FLAGS.train_steps,
-#      eval_steps=None,
-#      eval_metrics=eval_metrics,
-#      train_monitors=train_hooks)
 
-  experiment = tf.contrib.learn.Experiment(
+  experiment = PatchedExperiment(
       estimator=estimator,
       train_input_fn=train_input_fn,
       eval_input_fn=eval_input_fn,
       min_eval_frequency=FLAGS.eval_every_n_steps,
       train_steps=FLAGS.train_steps,
       eval_steps=None,
-      eval_metrics=None,
+      eval_metrics=eval_metrics,
       train_monitors=train_hooks)
 
   return experiment
