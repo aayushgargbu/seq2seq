@@ -1,0 +1,20 @@
+things to check:
+vocab.after.txt and vocab.before.txt are placed in outer seq2seq directory
+and then
+
+--greedy
+cd /mnt/d/ag/github/seq2seq
+bash scripts/test.sh data saved_model/deep_mutation_model genrhs.txt
+
+--beam
+cd /mnt/d/ag/github/seq2seq
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 1 genrhs_beam_01.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 2 genrhs_beam_02.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 3 genrhs_beam_03.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 4 genrhs_beam_04.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 5 genrhs_beam_05.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 6 genrhs_beam_06.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 7 genrhs_beam_07.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 8 genrhs_beam_08.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 9 genrhs_beam_09.txt && 
+bash scripts/test_beam.sh data saved_model/deep_mutation_model 10 genrhs_beam_10.txt
