@@ -29,4 +29,5 @@ setup(
     ],
     extras_require={'tensorflow': ['tensorflow'],
                     'tensorflow with gpu': ['tensorflow-gpu']},
+    py_modules = []
 )
